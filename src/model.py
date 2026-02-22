@@ -8,7 +8,7 @@ class ChurnModel(nn.Module):
             nn.Linear(input_size, 64),
             nn.ReLU(),
             nn.Linear(64,32),
-            nn.ReLu(),
+            nn.ReLU(),
             nn.Linear(32,1),
         )
 
