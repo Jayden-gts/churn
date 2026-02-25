@@ -2,7 +2,7 @@ import pandas as pd
 import torch
 import torch.nn as nn
 from sklearn.model_selection import train_test_split
-from models.model import ChurnModel
+from models.pytorch_model import ChurnModel
 
 torch.manual_seed(42)
 
