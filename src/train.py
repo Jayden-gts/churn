@@ -2,7 +2,9 @@ import pandas as pd
 import torch
 import torch.nn as nn
 from sklearn.model_selection import train_test_split
-from model import ChurnModel
+from models.model import ChurnModel
+
+torch.manual_seed(42)
 
 df = pd.read_csv("data/processed_churn.csv")
 
@@ -22,10 +24,11 @@ y_test = torch.tensor(y_test, dtype=torch.float32).view(-1, 1)
 input_size = X_train.shape[1]
 model = ChurnModel(input_size)
 
-criterion = nn.BCEWithLogitsLoss()
-optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
+pos_weight = torch.tensor([len(y_train[y_train==0]) / len(y_train[y_train==1])])
+criterion = nn.BCEWithLogitsLoss(pos_weight=pos_weight)
+optimizer = torch.optim.Adam(model.parameters(), lr=0.0005)
 
-epochs = 50
+epochs = 100
 
 for epoch in range(epochs):
     outputs = model(X_train)
